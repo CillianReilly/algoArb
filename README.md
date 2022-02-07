@@ -3,7 +3,7 @@ A project to highlight arbitrage opportunities on decentralised exchanges (DEXes
 
 Also a chance for me to get some experience interacting with blockchain technologies.
 
-As of now, [tinyman](https://tinyman.org) is the only DEX on Algorand, so currently I just compare to the USD price, obtained from [CoinGecko](https://www.coingecko.com).
+As of now, [tinyman](https://tinyman.org) is the only DEX on Algorand, so currently I just compare ALGO and YLDY to their USD price, obtained from [CoinGecko](https://www.coingecko.com).
 ```
 algoArb $ python3 algoArb.py YLDY ALGO
 YLDY per ALGO USD Price: 95.7278295249913
