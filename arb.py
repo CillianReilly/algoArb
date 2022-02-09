@@ -6,17 +6,24 @@ def main():
 	trgAsset=tiny.getAsset(trg)
 	srcAsset=tiny.getAsset(src)
 	pool=tiny.initPool(trgAsset,srcAsset)
-
+	swapAmount=tiny.getSwapAmount()
+	
 	USDPrice=coingecko.getQuote(trg,src)
 	print("{} per {} USD Price: {}".format(trg,src,USDPrice))
-	tinyQuote=tiny.getQuote(pool,srcAsset,1000000)
+	tinyQuote=tiny.getQuote(pool,srcAsset,swapAmount)
 	print("{} per {} tinyman: {}".format(trg,src,tinyQuote.price))
-
-	if tinyQuote.price<USDPrice:
-		print("Buy {trg} on USD with {src}, sell {trg} on tinyman for {src}. Returns: {0:.5g}%".format(100*(USDPrice/tinyQuote.price-1),trg=trg,src=src))
+	
+	if tinyQuote.price>USDPrice:
+		print("Selling {} ALGO for {} YLDY on tinyman".format(swapAmount/1000000,tinyQuote.amount_out.amount/1000000))		
+		print("Buying {} ALGO for {} YLDY with USD".format((tinyQuote.amount_out.amount/USDPrice)/1000000,tinyQuote.amount_out.amount/1000000))
+		print("Returns: {0:.4g}%".format(100*((tinyQuote.amount_out.amount/USDPrice)/swapAmount-1)))
 	else:
-		print("Buy {trg} on tinyman with {src}, sell {trg} on USD for {src}. Returns: {0:.5g}%".format(100*(tinyQuote.price/USDPrice-1),trg=trg,src=src))
-
+		tinyQuote=tiny.getQuote(pool,trgAsset,USDPrice*swapAmount)
+		print("Selling {} ALGO for {} YLDY on USD".format(swapAmount/1000000,USDPrice*swapAmount/1000000))
+		print("Buying {} ALGO for {} YLDY on tinyman".format(tinyQuote.amount_out.amount/1000000,USDPrice*swapAmount/1000000))
+		print("Returns: {0:.4g}%".format(100*(tinyQuote.amount_out.amount/swapAmount-1)))
+	
+	#print("Returns: ")
 
 if __name__=="__main__":
 	p=argparse.ArgumentParser()
