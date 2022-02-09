@@ -3,17 +3,19 @@ import tiny,coingecko
 
 def main():
 	trg,src=args.trg,args.src
-	pool,srcAsset=tiny.initPool(trg,src)
+	trgAsset=tiny.getAsset(trg)
+	srcAsset=tiny.getAsset(src)
+	pool=tiny.initPool(trgAsset,srcAsset)
 
 	USDPrice=coingecko.getQuote(trg,src)
 	print("{} per {} USD Price: {}".format(trg,src,USDPrice))
-	tinyPrice=tiny.getQuote(pool,srcAsset)
-	print("{} per {} tinyman: {}".format(trg,src,tinyPrice))
+	tinyQuote=tiny.getQuote(pool,srcAsset,1000000)
+	print("{} per {} tinyman: {}".format(trg,src,tinyQuote.price))
 
-	if tinyPrice<USDPrice:
-		print("Buy {trg} on USD with {src}, sell {trg} on tinyman for {src}. Returns: {0:.5g}%".format(100*(USDPrice/tinyPrice-1),trg=trg,src=src))
+	if tinyQuote.price<USDPrice:
+		print("Buy {trg} on USD with {src}, sell {trg} on tinyman for {src}. Returns: {0:.5g}%".format(100*(USDPrice/tinyQuote.price-1),trg=trg,src=src))
 	else:
-		print("Buy {trg} on tinyman with {src}, sell {trg} on USD for {src}. Returns: {0:.5g}%".format(100*(tinyPrice/USDPrice-1),trg=trg,src=src))
+		print("Buy {trg} on tinyman with {src}, sell {trg} on USD for {src}. Returns: {0:.5g}%".format(100*(tinyQuote.price/USDPrice-1),trg=trg,src=src))
 
 
 if __name__=="__main__":

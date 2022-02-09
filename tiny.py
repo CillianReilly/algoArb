@@ -1,14 +1,14 @@
 from tinyman.v1.client import TinymanMainnetClient
+from cfg import account
 
 assetIDMap={"ALGO":0,"YLDY":226701642}
-client=TinymanMainnetClient()
+client=TinymanMainnetClient(user_address=account["address"])
 
-def initPool(trg,src):
-        trg=client.fetch_asset(assetIDMap[trg])
-        src=client.fetch_asset(assetIDMap[src])
-        pool=client.fetch_pool(trg,src)
-        return [pool,src]
+def getAsset(asset):return client.fetch_asset(assetIDMap[asset])
+def initPool(trgAsset,srcAsset):return client.fetch_pool(trgAsset,srcAsset)
+def getQuote(pool,asset,amount):return pool.fetch_fixed_input_swap_quote(asset(amount),slippage=0.01)
 
-def getQuote(pool,src):
-        quote=pool.fetch_fixed_input_swap_quote(src(1000000),slippage=0.01)
-        return quote.price
+def swap(quote):
+	transaction_group=pool.prepare_swap_transactions_from_quote(quote)
+	transaction_group.sign_with_private_key(account["address"],account["private_key"])
+	result=client.submit(transaction_group,wait=True)
