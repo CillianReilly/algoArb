@@ -11,5 +11,4 @@ YLDY per ALGO tinyman: 92.7252628596883
 Selling 9.435357 ALGO for 874.895958 YLDY on tinyman
 Buying 9.603867530344154 ALGO for 874.895958 YLDY with USD
 Returns: 1.786%
-
 ```
