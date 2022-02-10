@@ -8,6 +8,7 @@ def main():
 	pool=tiny.initPool(trgAsset,srcAsset)
 	swapAmount=tiny.getSwapAmount()
 	
+	log.out("Starting arb.py")
 	USDPrice=coingecko.getQuote(trg,src)
 	log.out("{} per {} USD Price: {}".format(trg,src,USDPrice))
 	tinyQuote=tiny.getQuote(pool,srcAsset,swapAmount)
