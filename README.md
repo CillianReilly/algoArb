@@ -5,6 +5,7 @@ Also a chance for me to get some experience interacting with blockchain technolo
 
 As of now, [tinyman](https://tinyman.org) is the only DEX on Algorand, so currently I just compare ALGO and YLDY to their USD price, obtained from [CoinGecko](https://www.coingecko.com).
 ```
+algoArb $ python3 arb.py YLDY ALGO
 2022-02-10 10:22:12.925852 ### OUT ### YLDY per ALGO USD Price: 90.96459203255132
 2022-02-10 10:22:13.238044 ### OUT ### YLDY per ALGO tinyman: 96.04543664855501
 2022-02-10 10:22:13.238219 ### OUT ### Selling 9.435357 ALGO for 906.222983 YLDY on tinyman
