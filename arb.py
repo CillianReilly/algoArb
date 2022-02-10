@@ -16,12 +16,12 @@ def main():
 	if tinyQuote.price>USDPrice:
 		print("Selling {} ALGO for {} YLDY on tinyman".format(swapAmount/1000000,tinyQuote.amount_out.amount/1000000))		
 		print("Buying {} ALGO for {} YLDY with USD".format((tinyQuote.amount_out.amount/USDPrice)/1000000,tinyQuote.amount_out.amount/1000000))
-		print("Returns: {0:.4g}%".format(100*((tinyQuote.amount_out.amount/USDPrice)/swapAmount-1)))
+		print("Returns: {0:.5g}%".format(100*((tinyQuote.amount_out.amount/USDPrice)/swapAmount-1)))
 	else:
 		tinyQuote=tiny.getQuote(pool,trgAsset,USDPrice*swapAmount)
 		print("Selling {} ALGO for {} YLDY on USD".format(swapAmount/1000000,USDPrice*swapAmount/1000000))
 		print("Buying {} ALGO for {} YLDY on tinyman".format(tinyQuote.amount_out.amount/1000000,USDPrice*swapAmount/1000000))
-		print("Returns: {0:.4g}%".format(100*(tinyQuote.amount_out.amount/swapAmount-1)))
+		print("Returns: {0:.5g}%".format(100*(tinyQuote.amount_out.amount/swapAmount-1)))
 	
 	#print("Returns: ")
 
