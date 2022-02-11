@@ -15,13 +15,13 @@ def main():
 	log.out("{} per {} tinyman: {}".format(trg,src,tinyQuote.price))
 	
 	if tinyQuote.price>USDPrice:
-		log.out("Selling {} ALGO for {} YLDY on tinyman".format(swapAmount/1000000,tinyQuote.amount_out.amount/1000000))		
-		log.out("Buying {} ALGO for {} YLDY with USD".format((tinyQuote.amount_out.amount/USDPrice)/1000000,tinyQuote.amount_out.amount/1000000))
+		tiny.swap_fake(tinyQuote)
+		coingecko.swap_fake(tinyQuote.amount_out.amount,"Yieldy",tinyQuote.amount_out.amount/USDPrice,"Algo")
 		log.out("Returns: {0:.5g}%".format(100*((tinyQuote.amount_out.amount/USDPrice)/swapAmount-1)))
 	else:
 		tinyQuote=tiny.getQuote(pool,trgAsset,USDPrice*swapAmount)
-		log.out("Selling {} ALGO for {} YLDY with USD".format(swapAmount/1000000,USDPrice*swapAmount/1000000))
-		log.out("Buying {} ALGO for {} YLDY on tinyman".format(tinyQuote.amount_out.amount/1000000,USDPrice*swapAmount/1000000))
+		coingecko.swap_fake(swapAmount,"Algo",swapAmount*USDPrice,"Yieldly")
+		tiny.swap_fake(tinyQuote)
 		log.out("Returns: {0:.5g}%".format(100*(tinyQuote.amount_out.amount/swapAmount-1)))
 	
 if __name__=="__main__":
