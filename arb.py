@@ -5,7 +5,7 @@ def main():
 	trg,src=args.trg,args.src
 	trgAsset=tiny.getAsset(trg)
 	srcAsset=tiny.getAsset(src)
-	pool=tiny.initPool(trgAsset,srcAsset)
+	pool=tiny.getPool(trgAsset,srcAsset)
 	swapAmount=tiny.getSwapAmount()
 	
 	log.out("Starting arb.py")
@@ -20,7 +20,7 @@ def main():
 		log.out("Returns: {0:.5g}%".format(100*((tinyQuote.amount_out.amount/USDPrice)/swapAmount-1)))
 	else:
 		tinyQuote=tiny.getQuote(pool,trgAsset,USDPrice*swapAmount)
-		log.out("Selling {} ALGO for {} YLDY on USD".format(swapAmount/1000000,USDPrice*swapAmount/1000000))
+		log.out("Selling {} ALGO for {} YLDY with USD".format(swapAmount/1000000,USDPrice*swapAmount/1000000))
 		log.out("Buying {} ALGO for {} YLDY on tinyman".format(tinyQuote.amount_out.amount/1000000,USDPrice*swapAmount/1000000))
 		log.out("Returns: {0:.5g}%".format(100*(tinyQuote.amount_out.amount/swapAmount-1)))
 	

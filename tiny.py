@@ -5,7 +5,7 @@ assetIDMap={"ALGO":0,"YLDY":226701642}
 client=TinymanMainnetClient(user_address=algo.account["address"])
 
 def getAsset(asset):return client.fetch_asset(assetIDMap[asset])
-def initPool(trgAsset,srcAsset):return client.fetch_pool(trgAsset,srcAsset)
+def getPool(trgAsset,srcAsset):return client.fetch_pool(trgAsset,srcAsset)
 def getQuote(pool,asset,amount):return pool.fetch_fixed_input_swap_quote(asset(amount),slippage=0.01)
 
 def swap(quote):
