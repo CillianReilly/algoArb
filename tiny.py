@@ -9,7 +9,7 @@ def getPool(trgAsset,srcAsset):return client.fetch_pool(trgAsset,srcAsset)
 def getQuote(pool,asset,amount):return pool.fetch_fixed_input_swap_quote(asset(amount),slippage=0.01)
 
 def swap(quote):
-	log.out("Converting {} {} to {} {} on tinyman".format(
+	log.out("Converting {:.4g} {} to {:.4g} {} on tinyman".format(
                 quote.amount_in.amount/1000000,
 		quote.amount_in.asset.name,
                 quote.amount_out.amount/1000000,
@@ -25,7 +25,7 @@ def getSwapAmount():
 	
 
 def swap_fake(quote):
-	log.out("Converting {} {} to {} {} on tinyman".format(
+	log.out("Converting {:.6f} {} to {:.6f} {} on tinyman".format(
 		quote.amount_in.amount/1000000,
                 quote.amount_in.asset.name,
                 quote.amount_out.amount/1000000,

@@ -10,9 +10,9 @@ def main():
 	
 	log.out("Starting arb.py")
 	USDPrice=coingecko.getQuote(trg,src)
-	log.out("{} per {} USD Price: {}".format(trg,src,USDPrice))
+	log.out("{} per {} USD Price: {:.6f}".format(trg,src,USDPrice))
 	tinyQuote=tiny.getQuote(pool,srcAsset,swapAmount)
-	log.out("{} per {} tinyman: {}".format(trg,src,tinyQuote.price))
+	log.out("{} per {} tinyman: {:.6f}".format(trg,src,tinyQuote.price))
 	
 	if tinyQuote.price>USDPrice:
 		tiny.swap_fake(tinyQuote)

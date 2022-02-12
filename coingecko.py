@@ -15,7 +15,7 @@ def getQuote(trg,src):
 	return price[src]/price[trg]
 
 def swap_fake(trgAmount,trgAsset,srcAmount,srcAsset):
-	log.out("Converting {} {} to {} {} on coingecko".format(
+	log.out("Converting {:.6f} {} to {:.6f} {} on coingecko".format(
 		trgAmount/1000000,
 		trgAsset,
 		srcAmount/1000000,
