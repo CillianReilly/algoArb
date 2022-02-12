@@ -17,12 +17,15 @@ def main():
 	if tinyQuote.price>USDPrice:
 		tiny.swap_fake(tinyQuote)
 		coingecko.swap_fake(tinyQuote.amount_out.amount,trg,tinyQuote.amount_out.amount/USDPrice,src)
-		log.out("Returns: {0:.5g}%".format(100*((tinyQuote.amount_out.amount/USDPrice)/swapAmount-1)))
+		logReturn((tinyQuote.amount_out.amount/USDPrice)/swapAmount)
 	else:
 		tinyQuote=tiny.getQuote(pool,trgAsset,USDPrice*swapAmount)
 		coingecko.swap_fake(swapAmount,src,swapAmount*USDPrice,trg)
 		tiny.swap_fake(tinyQuote)
-		log.out("Returns: {0:.5g}%".format(100*(tinyQuote.amount_out.amount/swapAmount-1)))
+		logReturn(tinyQuote.amount_out.amount/swapAmount)
+
+def logReturn(input):
+	log.out("Returns: {0:.6f}%".format(100*(input-1)))
 	
 if __name__=="__main__":
 	p=argparse.ArgumentParser()
