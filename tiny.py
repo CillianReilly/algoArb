@@ -1,3 +1,6 @@
+import csv
+from datetime import datetime
+
 import log,algo
 from tinyman.v1.client import TinymanMainnetClient
 
@@ -17,7 +20,7 @@ def swap(quote):
                 ))
 	transaction_group=pool.prepare_swap_transactions_from_quote(quote)
 	transaction_group.sign_with_private_key(algo.account["address"],algo.account["private_key"])
-	result=client.submit(transaction_group,wait=True)
+	return client.submit(transaction_group,wait=True)
 
 def getSwapAmount():
 	data=algo.getWalletData(algo.account["address"])
@@ -27,11 +30,15 @@ def getSwapAmount():
 def swap_fake(quote):
 	log.out("Converting {:.6f} {} to {:.6f} {} on tinyman".format(
 		quote.amount_in.amount/1000000,
-                quote.amount_in.asset.name,
+                quote.amount_in.asset.unit_name,
                 quote.amount_out.amount/1000000,
-                quote.amount_out.asset.name
+                quote.amount_out.asset.unit_name
 		))
 
-
-
-
+	time=datetime.now()
+	data=[
+		[time,quote.amount_in.asset.unit_name,"S",quote.amount_in.amount/1000000],
+		[time,quote.amount_out.asset.unit_name,"B",quote.amount_out.amount/1000000],
+		[time,"ALGO","S",0.004]
+		]
+	with open("arb.csv","a")as f:csv.writer(f).writerows(data)		
