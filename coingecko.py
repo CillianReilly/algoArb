@@ -1,9 +1,10 @@
 import csv,requests
+import pandas as pd
 from datetime import datetime
 
 import log
 
-IDMap={"ALGO":"algorand","YLDY":"yieldly"}
+IDMap=dict(pd.read_csv("asa.csv")[["asset","coingeckoID"]].values)
 endpoint="https://api.coingecko.com/api/v3/simple/price"
 
 def getPrice(symbols):

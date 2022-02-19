@@ -1,10 +1,11 @@
 import csv
+import pandas as pd
 from datetime import datetime
 
 import log,algo
 from tinyman.v1.client import TinymanMainnetClient
 
-assetIDMap={"ALGO":0,"YLDY":226701642}
+assetIDMap=dict(pd.read_csv("asa.csv")[["asset","assetID"]].values)
 client=TinymanMainnetClient(user_address=algo.account["address"])
 
 def getAsset(asset):return client.fetch_asset(assetIDMap[asset])
@@ -23,12 +24,13 @@ def swap(quote):
 	result=client.submit(transaction_group,wait=True)
 
 	time=datetime.now()
-        data=[
-                [time,quote.amount_in.asset.unit_name,"S",quote.amount_in.amount/1000000],
-                [time,quote.amount_out.asset.unit_name,"B",quote.amount_out.amount/1000000],
-                [time,"ALGO","S",0.004]
-                ]
-        with open("arb.csv","a")as f:csv.writer(f).writerows(data)
+	data=[
+		[time,quote.amount_in.asset.unit_name,"S",quote.amount_in.amount/1000000],
+		[time,quote.amount_out.asset.unit_name,"B",quote.amount_out.amount/1000000],
+		[time,"ALGO","S",0.004]
+		]
+
+	with open("arb.csv","a")as f:csv.writer(f).writerows(data)
 
 	return result
 
