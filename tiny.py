@@ -5,7 +5,7 @@ from datetime import datetime
 import log,algo
 from tinyman.v1.client import TinymanMainnetClient
 
-assetIDMap=dict(pd.read_csv("asa.csv")[["asset","assetID"]].values)
+assetIDMap=dict(pd.read_csv("asa.csv")[["asset","tinymanID"]].values)
 client=TinymanMainnetClient(user_address=algo.account["address"])
 
 def getAsset(asset):return client.fetch_asset(assetIDMap[asset])
