@@ -12,7 +12,7 @@ def getAsset(asset):return client.fetch_asset(assetIDMap[asset])
 def getPool(trgAsset,srcAsset):return client.fetch_pool(trgAsset,srcAsset)
 def getQuote(pool,asset,amount):return pool.fetch_fixed_input_swap_quote(asset(amount),slippage=0.01)
 
-def swap(quote):
+def swap(pool,quote):
 	log.out("Converting {:.6f} {} to {:.6f} {} on tinyman".format(
                 quote.amount_in.amount/1000000,
 		quote.amount_in.asset.name,
@@ -31,7 +31,6 @@ def swap(quote):
 		]
 
 	with open("arb.csv","a")as f:csv.writer(f).writerows(data)
-
 	return result
 
 def getSwapAmount():
@@ -39,7 +38,7 @@ def getSwapAmount():
 	return algo.getAvailableBalance(data)/2
 	
 
-def swap_fake(quote):
+def swap_fake(pool,quote):
 	log.out("Converting {:.6f} {} to {:.6f} {} on tinyman".format(
 		quote.amount_in.amount/1000000,
                 quote.amount_in.asset.unit_name,
