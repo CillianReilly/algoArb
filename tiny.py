@@ -33,10 +33,6 @@ def swap(pool,quote):
 	with open("arb.csv","a")as f:csv.writer(f).writerows(data)
 	return result
 
-def getSwapAmount():
-	data=algo.getWalletData(algo.account["address"])
-	return algo.getAvailableBalance(data)/2
-	
 
 def swap_fake(pool,quote):
 	log.out("Converting {:.6f} {} to {:.6f} {} on tinyman".format(
