@@ -1,3 +1,3 @@
-asset,tinymanID,coingeckoID
-ALGO,0,algorand
-YLDY,226701642,yieldly
+asset,tinymanID,algofiID,coingeckoID
+ALGO,0,1,algorand
+YLDY,226701642,226701642,yieldly
